@@ -9,6 +9,18 @@ body {
   color: white;
 }
 
+.App-editor {
+  display: grid;
+}
+
+.left-editor {
+  grid-column: 1
+}
+
+.right-editor {
+  grid-column: 2
+}
+
 .App-intro {
   font-size: large;
 }
