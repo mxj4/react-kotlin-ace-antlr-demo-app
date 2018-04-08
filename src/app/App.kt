@@ -24,7 +24,7 @@ class App : RComponent<RProps, RState>() {
         div("App-editor") {
             div("left-editor") {
                 h3 { +"SimpleBoolean Editor" }
-                ace("simple-boolean", "A AND B NOT C")
+                ace("simple-boolean", "")
             }
             div ("right-editor") {
                 h3 { +"JSON Editor" }
