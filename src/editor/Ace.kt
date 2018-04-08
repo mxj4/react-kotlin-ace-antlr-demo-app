@@ -1,6 +1,7 @@
 package editor
 
 import AceEditorProps
+import EditorProps
 import react.RBuilder
 import react.RClass
 import react.RComponent
@@ -41,6 +42,12 @@ class Ace(props: AceProps) : RComponent<AceProps, AceState>(props) {
                 showGutter = true
                 showPrintMargin = false
                 highlightActiveLine = true
+
+                // FIXME Kotlin would mangle js property name if I use generated binding
+                // editorProps = object: EditorProps {
+                //     override var `$blockScrolling` = true
+                // }
+                editorProps = js("{\$blockScrolling: true}")
 
                 value = state.text
 
