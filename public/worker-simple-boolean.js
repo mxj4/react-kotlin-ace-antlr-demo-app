@@ -1,9 +1,8 @@
-importScripts('ace-builds/src-noconflict/ace.js');
-importScripts('./worker.js');
-importScripts('./mirror.js');
+importScripts("ace/worker-json.js");
+
 
 ace.define(
-  'ace/worker/simple-boolean-worker',
+  'ace/worker/simple-boolean',
   [
     'require', 'exports', 'module',
     'ace/lib/oop',
@@ -11,12 +10,10 @@ ace.define(
   ], function(require, exports, module) {
     'use strict';
 
-    //require('ace-builds/src-noconflict/ace.js');
-
     var oop = require('ace/lib/oop');
     var Mirror = require('ace/worker/mirror').Mirror;
 
-    var MyWorker = function(sender) {
+    var SimpleBooleanWorker = function(sender) {
       Mirror.call(this, sender);
       this.setTimeout(200);
       this.$dialect = null;
@@ -27,18 +24,18 @@ ace.define(
     // load nodejs compatible require. See https://github.com/antlr/antlr4/blob/master/doc/ace-javascript-target.md
     var ace_require = require;
     window.require = undefined; // prevent error: "Honey: 'require' already defined in global scope"
-    //var Honey = { 'requirePath': ['..'] }; // walk up to js folder, see Honey docs
-    importScripts('./require.js');
+    var Honey = { 'requirePath': ['..'] }; // walk up to js folder, see Honey docs
+    importScripts('require.js');
     var antlr4_require = window.require;
-    window.require = ace_require;
+    window.require = require = ace_require;
 
     // load antlr4 and SimpleBoolean lexer/parser
     var antlr4, SimpleBooleanLexer, SimpleBooleanParser;
     try {
       window.require = antlr4_require;
       antlr4 = antlr4_require('antlr4/index');
-      SimpleBooleanLexer = antlr4_require('src/generated/SimpleBooleanLexer').SimpleBooleanLexer;
-      SimpleBooleanLexer = antlr4_require('src/generated/SimpleBooleanParser').SimpleBooleanLexer;
+      SimpleBooleanLexer = antlr4_require('parser/SimpleBooleanLexer.js').SimpleBooleanLexer;
+      SimpleBooleanParser = antlr4_require('parser/SimpleBooleanParser.js').SimpleBooleanParser;
     } finally {
       window.require = ace_require;
     }
@@ -71,7 +68,7 @@ ace.define(
       var listener = new AnnotatingErrorListener(annotations);
       parser.removeErrorListeners();
       parser.addErrorListener(listener);
-      parser.file();
+      parser.parse();
       return annotations;
     }
 

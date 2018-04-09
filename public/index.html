@@ -4,6 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
+
+    <!--
+      add js code for our custom ace mode and worker
+    -->
+    <script src="require.js"></script>
+    <script type="application/javascript">
+      var antlr4 = require('antlr4/index');
+      var antlr4_require = require;
+    </script>
+    <script src="ace/ace.js"></script>
+    <script>
+      ace.define('antlr4/index', function (require, exports, module) {
+        module.exports = antlr4;
+      });
+    </script>
+    <script src="ace-config.js"></script>
+    <script src="parser/token-type-map.js"></script>
+    <script src="parser/tokenizer.js"></script>
+<!--
+    <script src="ace/theme-github.js"></script>
+    <script src="ace/mode-json.js"></script>
+    <script src="ace/worker-json.js"></script>
+-->
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/

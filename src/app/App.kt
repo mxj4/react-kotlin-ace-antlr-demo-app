@@ -24,11 +24,11 @@ class App : RComponent<RProps, RState>() {
         div("App-editor") {
             div("left-editor") {
                 h3 { +"SimpleBoolean Editor" }
-                ace("simple-boolean", "B OR (c >= 12 OR (NOT A = TRUE AND c < 4 OR NOT ))")
+                ace("ace/mode/simple-boolean", "B OR (c >= 12 OR (NOT A = TRUE AND c < 4 OR NOT ))")
             }
             div ("right-editor") {
                 h3 { +"JSON Editor" }
-                ace("json", "{\n  \"a\": \"A\",\n  \"b\": \"B\"\n}\n")
+                ace("ace/mode/json", "{\n  \"a\": \"A\",\n  \"b\": \"B\"\n}\n")
             }
         }
         p("App-intro") {

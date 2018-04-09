@@ -141,9 +141,9 @@
       for (var index = 0; index < identifier.length; index++) {
         (function(id, i) {
           modules.push(require(id, callback&&function(mod) {
-            modules[i] = mod;
-            (--modcount==0) && callback(modules);
-          }, compiler));
+              modules[i] = mod;
+              (--modcount==0) && callback(modules);
+            }, compiler));
         })(identifier[index], index);
       }
       return modules;
