@@ -1,6 +1,31 @@
+This is a demonstration of using Ace editor through React Kotlin App,
+and add a custom Ace mode to support a new language defined in EBNF grammar,
+the custom mode support syntax highlighting and real-time grammar validation through ANTLR4-generated lexer and parser.
+
 This project was bootstrapped with [Create React Kotlin App](https://github.com/JetBrains/create-react-kotlin-app).
 
-Below you will find some useful information on how to work with this application.<br>
+The ANTLR4 integration is based on
+[this doc](https://github.com/antlr/antlr4/blob/master/doc/ace-javascript-target.md) from ANTLR project.
+The integration with generated lexer rely on a 3rd party Ace module
+[antlr4-ace-ext](https://github.com/maiermic/antlr4-ace-ext),
+my implementation referenced their
+[official demo](https://github.com/maiermic/antlr4-javascript-examples/tree/master/browser-example),
+`require.js` and `index.html` head also comes from there.
+
+I need to import other JS code in my custom worker, but looks like Ace `1.2.6` is the last version in npm that supports
+importing other scripts from a relative path.
+In newer versions, only http URLs work, but that's hard to use with the `require.js` used in this project.
+Maybe bundle all worker code together using Webpack will help, but I'm fine with an older Ace.
+
+There is a [react-ace](https://github.com/securingsincity/react-ace) project which is easier to import than vanilla `Ace`,
+but they use [brace](https://github.com/thlorenz/brace) which do not support using un-bundled worker code just like
+newer versioned Ace.
+
+Below are the original bootstrapped README about `Create React Kotlin App`:
+
+---
+
+
 We're still working on this guide and you can find its most recent version [here](https://github.com/JetBrains/create-react-kotlin-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Sending Feedback

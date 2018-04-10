@@ -7,11 +7,11 @@ ace.define(
     'require', 'exports', 'module',
     'ace/lib/oop',
     'ace/worker/mirror'
-  ], function(require, exports, module) {
+  ], function(acequire, exports, module) {
     'use strict';
 
-    var oop = require('ace/lib/oop');
-    var Mirror = require('ace/worker/mirror').Mirror;
+    var oop = acequire('ace/lib/oop');
+    var Mirror = acequire('ace/worker/mirror').Mirror;
 
     var SimpleBooleanWorker = function(sender) {
       Mirror.call(this, sender);
@@ -21,24 +21,15 @@ ace.define(
 
     oop.inherits(SimpleBooleanWorker, Mirror);
 
-    // load nodejs compatible require. See https://github.com/antlr/antlr4/blob/master/doc/ace-javascript-target.md
-    var ace_require = require;
+    // load nodejs compatible require.
     window.require = undefined; // prevent error: "Honey: 'require' already defined in global scope"
-    var Honey = { 'requirePath': ['..'] }; // walk up to js folder, see Honey docs
     importScripts('require.js');
     var antlr4_require = window.require;
-    window.require = require = ace_require;
 
     // load antlr4 and SimpleBoolean lexer/parser
-    var antlr4, SimpleBooleanLexer, SimpleBooleanParser;
-    try {
-      window.require = antlr4_require;
-      antlr4 = antlr4_require('antlr4/index');
-      SimpleBooleanLexer = antlr4_require('parser/SimpleBooleanLexer.js').SimpleBooleanLexer;
-      SimpleBooleanParser = antlr4_require('parser/SimpleBooleanParser.js').SimpleBooleanParser;
-    } finally {
-      window.require = ace_require;
-    }
+    var antlr4 = antlr4_require('antlr4/index');
+    var SimpleBooleanLexer = antlr4_require('parser/SimpleBooleanLexer.js').SimpleBooleanLexer;
+    var SimpleBooleanParser = antlr4_require('parser/SimpleBooleanParser.js').SimpleBooleanParser;
 
     // class for gathering errors and posting them to ACE editor
     var AnnotatingErrorListener = function(annotations) {
